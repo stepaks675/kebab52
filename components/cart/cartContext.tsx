@@ -30,12 +30,10 @@ const CartReducer = (state: Cart, action: Action): Cart => {
       for (let i = 0; i < state.items.length; i++) {
         if (newCart1[i].id == action.item.id) {
           flag = true;
-          newCart1[i].quantity++;
-          console.log("+1")
+          newCart1[i].quantity+= action.item.quantity;
           break;
         }
       }
-      console.log("вышли с цикла")
       if (!flag) newCart1.push(action.item);
       return {
         items: [...newCart1],
