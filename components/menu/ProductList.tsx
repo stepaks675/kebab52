@@ -5,8 +5,8 @@ export const ProductList = ({category}: {category:string}) => {
     return (<div className="grid grid-cols-4 gap-5">
         <Product id={1} name={"HYPNODANCE"} img={"/template.jpg"} price={300} weight={400} />
         <Product id={1} name={"HYPNODANCE"} img={"/shashlik.jpeg"} price={300} weight={100} />
-        <Product id={1} name={"HYPNODANCE"} img={"/template.jpg"} price={300} weight={400} />
-        <Product id={1} name={"HYPNODANCE"} img={"/shashlik.jpeg"} price={300} weight={100} />
+        <Product id={1} name={"HYPNODANCE"} img={"/drinks.jpg"} price={300} weight={400} />
+        <Product id={1} name={"HYPNODANCE"} img={"/salad.jpg"} price={300} weight={100} />
         <Product id={1} name={"HYPNODANCE"} img={"/template.jpg"} price={300} weight={400} />
         <Product id={1} name={"HYPNODANCE"} img={"/shashlik.jpeg"} price={300} weight={100} />
         <Product id={1} name={"HYPNODANCE"} img={"/template.jpg"} price={300} weight={400} />

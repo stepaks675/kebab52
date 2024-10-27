@@ -1,6 +1,6 @@
 export const PhoneSection = ():React.ReactNode => {
     return(
-    <div className="flex flex-col justify-center w-1/4 text-center">
+    <div className="flex flex-col justify-center w-max text-center">
         <PhoneNumber number="78314134104"/>
         <PhoneNumber number="78314101611"/>
         <span>Работаем <span className="text-orange-400">круглосуточно</span></span>

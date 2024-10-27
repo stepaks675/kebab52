@@ -7,13 +7,15 @@ export const Product = ({
   price,
   name,
   img,
-  weight
+  weight,
+  option = "NORMAL"
 }: {
   id: number;
   price: number;
   name: string;
   img: string;
   weight: number;
+  option: "DEV" | "NORMAL"
 }) => {
   const { dispatch } = useCart();
   const handleSubmit = () => {
@@ -26,7 +28,7 @@ export const Product = ({
   return (
     <div className="flex flex-col items-center py-2 px-3 hover:shadow-2xl  transistion-all duration-500">
       <span className="font-semibold text-lg">{name}</span>
-      <img className="w-[300px] rounded-lg overflow-hidden" src={img} />
+      <img className="w-[300px] h-[200px] rounded-lg overflow-hidden" src={img} />
       <div className="flex items-center justify-around gap-1">
         <span className="font-bold ">{price} р. </span>
         <span className="font-extralight"> / {weight} гр.</span>
@@ -50,7 +52,7 @@ export const Product = ({
            <FaPlus/>
           </button>
         </div>
-        <button onClick={handleSubmit} className="border  px-2 py-1 border-slate-200 rounded-2xl bg-orange-600 flex items-center gap-1 hover:bg-orange-400 transistion-all duration-200">
+        <button disabled={option == "DEV"} onClick={handleSubmit} className="border  px-2 py-1 border-slate-200 rounded-2xl bg-orange-600 flex items-center gap-1 hover:bg-orange-400 transistion-all duration-200">
           <FaCartPlus/>
           <span className="text-white font-semibold">В корзину</span>
         </button>

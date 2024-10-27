@@ -1,23 +1,33 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import fs from "fs"
+import path from 'path';
+
+async function saveImage(img : any){
+  const arrayBuffer = await img.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  const filePath = path.join(process.cwd(), 'public', 'uploads', img.name);
+  fs.writeFileSync(filePath, buffer);
+  return filePath
+}
+
 export async function POST(request: Request) {
   //создание нового продукта, удаление старого, изменение
-  const data = await request.json();
-  switch (data.option) {
+  const data = await request.formData();
+  switch (data.get("option")) {
     case "ADD":
       try {
-        const prod = await prisma.product.findFirst({
+        const imgpath = await saveImage(data.get("img"))
+        await prisma.product.upsert({
           where: {
-            name: data.name,
+            name: data.get("name") as string,
           },
-        });
-        if (prod) throw new Error("Такая позиция уже существует");
-        await prisma.product.create({
-          data: {
-            name: data.name,
-            price: data.price,
-            category: data.category,
-            img: data.img
+          update:{},
+          create: {
+            name: data.get("name") as string,
+            price: parseFloat(data.get("price") as string),
+            category: data.get("category") as string,
+            img: imgpath,
           },
         });
         return NextResponse.json({ status: 200 });
@@ -25,14 +35,15 @@ export async function POST(request: Request) {
         return NextResponse.json(err, { status: 404 });
       }
     case "DELETE":
-      try{
+      try {
+        console.log(data)
         await prisma.product.delete({
-          where:{
-            id: data.id
-          }
-        })
+          where: {
+            id: parseInt(data.get("id")),
+          },
+        });
         return NextResponse.json({ status: 200 });
-      }catch(err){
+      } catch (err) {
         return NextResponse.json(err, { status: 404 });
       }
   }
