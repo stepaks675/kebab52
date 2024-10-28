@@ -21,7 +21,7 @@ export const Product = ({
   const handleSubmit = () => {
     dispatch({
       type: "add",
-      item: { id: id, price: price, name: name, quantity: amount },
+      item: { id: id, price: price, name: name, quantity: amount, img, weight },
     });
   };
   const [amount, setAmount] = useState(0);
@@ -52,7 +52,7 @@ export const Product = ({
            <FaPlus/>
           </button>
         </div>
-        <button disabled={option == "DEV"} onClick={handleSubmit} className="border  px-2 py-1 border-slate-200 rounded-2xl bg-orange-600 flex items-center gap-1 hover:bg-orange-400 transistion-all duration-200">
+        <button disabled={option == "DEV" || !amount} onClick={handleSubmit} className="border  px-2 py-1 border-slate-200 rounded-2xl bg-orange-600 flex items-center gap-1 hover:bg-orange-400 disabled:bg-slate-300 transistion-all duration-200">
           <FaCartPlus/>
           <span className="text-white font-semibold">В корзину</span>
         </button>

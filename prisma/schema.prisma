@@ -20,6 +20,7 @@ model Product {
   category String
   weight Float
 }
+
 model User {
   id Int @id @default(autoincrement())
   name String
