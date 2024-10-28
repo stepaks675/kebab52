@@ -7,8 +7,9 @@ async function saveImage(img : any){
   const arrayBuffer = await img.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
   const filePath = path.join(process.cwd(), 'public', 'uploads', img.name);
+  console.log(filePath)
   fs.writeFileSync(filePath, buffer);
-  return filePath
+  return `../uploads/${img.name}`
 }
 
 export async function POST(request: Request) {
@@ -27,6 +28,7 @@ export async function POST(request: Request) {
             name: data.get("name") as string,
             price: parseFloat(data.get("price") as string),
             category: data.get("category") as string,
+            weight : parseFloat(data.get("weight") as string) ,
             img: imgpath,
           },
         });
@@ -39,7 +41,7 @@ export async function POST(request: Request) {
         console.log(data)
         await prisma.product.delete({
           where: {
-            id: parseInt(data.get("id")),
+            id: parseInt(data.get("id") as string),
           },
         });
         return NextResponse.json({ status: 200 });

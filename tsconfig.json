@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/admin/upload/route.js", "app/admin/page.jsx", "components/admin/AddForm.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/admin/upload/route.js", "app/admin/menu/page.jsx", "components/admin/AddForm.jsx"],
   "exclude": ["node_modules"]
 }

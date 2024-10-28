@@ -12,6 +12,15 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+model Order{
+  id Int @id @default(autoincrement())
+  status String
+  products Int[]
+  date DateTime
+  phone String
+  name String
+
+}
 model Product {
   id Int @id @default(autoincrement())
   img String
@@ -20,11 +29,8 @@ model Product {
   category String
   weight Float
 }
-model User {
+
+model Session {
   id Int @id @default(autoincrement())
-  name String
-  email String
-  password String
-  orderNumber Int
-  role String
+  cookie String
 }

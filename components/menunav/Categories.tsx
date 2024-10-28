@@ -4,7 +4,7 @@ import { MdShoppingCart } from "react-icons/md";
 import Link from "next/link";
 export const Categories = () => {
   return (
-    <div className="sticky top-0 w-full z-10 bg-orange-800 h-12">
+    <div className="sticky px-5 top-0 w-full z-10 bg-orange-800 h-12">
       <div className="max-w-[1500px] mx-auto h-full relative">
         <div className="h-full w-fit flex justify-start items-center gap-4">
           <CategoryItem category="shaurma">Шаурма</CategoryItem>
