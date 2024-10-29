@@ -29,7 +29,6 @@ model Product {
   category String
   weight Float
 }
-
 model Session {
   id Int @id @default(autoincrement())
   cookie String
