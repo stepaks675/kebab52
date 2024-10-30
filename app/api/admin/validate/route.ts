@@ -10,13 +10,14 @@ export async function GET (request: Request){
             }
         })
         const uSession = await cookieStorage.get("admin")
-        console.log(uSession)
-        console.log(validSession)
+        if (!uSession) {return NextResponse.json("undef",{status:404})}
+        //console.log(uSession)
+        console.log(validSession) 
         if (uSession == validSession){
             return NextResponse.json({status:200})
         }
         else{
-            return NextResponse.json({status:400})
+            return NextResponse.json({status:404})
         }
     } catch (err){
         return NextResponse.json(err,{status:404})
