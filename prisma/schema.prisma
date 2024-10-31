@@ -16,13 +16,14 @@ model Order{
   id Int @id @default(autoincrement())
   status String
   products Json
-  date DateTime
+  date String
   phone String?
   name String?
   takeaway Boolean
   adress String?
-
+  suggestion String?
 }
+
 model Product {
   id Int @id @default(autoincrement())
   img String
@@ -31,7 +32,9 @@ model Product {
   category String
   weight Float
 }
+
 model Session {
   id Int @id @default(autoincrement())
   cookie String
+  expires String?
 }

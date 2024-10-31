@@ -12,11 +12,11 @@ export default function Login (){
         data.append("uname", formState.uname)
         data.append("pass", formState.pass)
 
-        fetch("/api/admin/login", {
+        const res = await fetch("/api/admin/login", {
             method: "POST",
             body: data
         })
-
+        
 
     }
     return (

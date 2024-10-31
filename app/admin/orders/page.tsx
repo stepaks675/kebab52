@@ -6,12 +6,12 @@ export default function OrderPage(){
     const [orders, setOrders] = useState([]) //получим все заказы
     const [products, setProducts] = useState([]) //получим все продукты для сопоставления по id
     useEffect(()=>{
-        fetch("/api/admin/orders").then(res =>res.json()).then( data => {
-            setOrders(data)
-        })
-        fetch("/api/admin/orders").then(res =>res.json()).then( data => {
-            setOrders(data)
-        })
+        // fetch("/api/admin/orders").then(res =>res.json()).then( data => {
+        //     setOrders(data)
+        // })
+        // fetch("/api/admin/orders").then(res =>res.json()).then( data => {
+        //     setOrders(data)
+        // })
     },[])
     return <div
     className="grid grid-cols-5 grid-flow-row px-10 gap-5 mt-10">

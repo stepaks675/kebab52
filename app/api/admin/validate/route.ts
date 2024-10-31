@@ -1,25 +1,34 @@
-import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { NextResponse } from "next/server"
 import prisma from "@/lib/prisma";
-export async function GET (request: Request){
-    try{
-        const cookieStorage = await cookies()
-        const validSession = await prisma.session.findFirst({
-            select: {
-                cookie:true
-            }
-        })
-        const uSession = await cookieStorage.get("admin")
-        if (!uSession) {return NextResponse.json("undef",{status:404})}
-        //console.log(uSession)
-        console.log(validSession) 
-        if (uSession == validSession){
-            return NextResponse.json({status:200})
+import { cookies } from "next/headers";
+export async function GET(req : Request ){
+    try {
+        const cookieStorage = await cookies();
+        const uSession = await cookieStorage.get("admin")?.value;
+        console.log(uSession);
+        const allsess = await prisma.session.findMany({});
+        console.log(allsess);
+        const probvalidSession = await prisma.session.findFirst({
+          where: {
+            cookie: String(uSession),
+          },
+        });
+        console.log(probvalidSession);
+        if (!probvalidSession || !uSession) {
+            return NextResponse.json("NOT OK", {status:404})
         }
-        else{
-            return NextResponse.json({status:404})
+        if (parseInt(probvalidSession.expires) > Date.now()) {
+          return NextResponse.json("OK",{status:200});
+        } else {
+          await prisma.session.delete({
+            where: {
+              cookie: String(uSession),
+            },
+          });
+          return NextResponse.json("NOT OK", {status:404})
         }
-    } catch (err){
-        return NextResponse.json(err,{status:404})
-    }
+      } catch (err) {
+        console.log(err)
+        return NextResponse.json("NOT OK", {status:404})
+      }
 }

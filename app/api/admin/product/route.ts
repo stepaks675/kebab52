@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import fs from "fs"
 import path from 'path';
@@ -13,6 +14,8 @@ async function saveImage(img : any){
 }
 
 export async function POST(request: Request) {
+  const res = await fetch("/api/admin/validate")
+    if (res.status!=200) redirect("/login")
   //создание нового продукта, удаление старого, изменение
   const data = await request.formData();
   switch (data.get("option")) {
@@ -48,5 +51,17 @@ export async function POST(request: Request) {
       } catch (err) {
         return NextResponse.json(err, { status: 404 });
       }
+  }
+}
+
+export async function GET() {
+  const res = await fetch("/api/admin/validate")
+    if (res.status!=200) redirect("/login")
+  try {
+    const productList = await prisma.product.findMany({});
+    const prodmap = productList.map(item = > { return {item.id : item.name}})
+    return NextResponse.json(prodmap, {status:200})
+  } catch (err) {
+    
   }
 }

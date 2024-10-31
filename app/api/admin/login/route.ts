@@ -8,7 +8,7 @@ export async function POST(request : Request){
         const cookieStore = await cookies();
         if (data.get("pass") == process.env.ADMIN_PASSWORD && data.get("uname")==process.env.ADMIN_UNAME){
             if (cookieStore.has("admin")){
-                return NextResponse.json("Already logged as admin", {status:200})
+                return NextResponse.json("Already logged as admin", {status:204})
             }
             else{
                 const enc = uuidv4()
@@ -16,14 +16,10 @@ export async function POST(request : Request){
                     expires:Date.now()+60*1000*60*12,
                     httpOnly: true
                 })
-                await prisma.session.deleteMany({
-                    where: {
-
-                    }
-                })
                 await prisma.session.create({
                     data:{
-                        cookie: enc
+                        cookie: enc,
+                        expires: String(Date.now()+60*1000*60*12)
                     }
                 })
                 return NextResponse.json("OK", {status:200})
