@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation"
+import Validator from "@/components/utility/validateSession";
 export async function GET (){
-    const res = await fetch("/api/admin/validate")
-    if (res.status!=200) redirect("/login")
+    const res = await Validator();
+    if (!res) redirect("/login")
+
     try {
         const orders = await prisma.order.findMany({
         })
         console.log(orders)
-        return NextResponse.json("OK",{status:200})
+        return NextResponse.json(orders,{status:200})
     }
     catch (err) {
         return NextResponse.json(err,{status:400})
