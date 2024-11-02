@@ -9,7 +9,6 @@ export async function GET (){
     try {
         const orders = await prisma.order.findMany({
         })
-        console.log(orders)
         return NextResponse.json(orders,{status:200})
     }
     catch (err) {
@@ -18,8 +17,17 @@ export async function GET (){
 }
 
 export async function POST( req: Request){
-    try {
-        
+    try {   
+        const body = await req.json()
+        await prisma.order.update({
+            where: {
+                id: body.id
+            },
+            data: {
+                status: body.status
+            }
+        })
+        return NextResponse.json("OK",{status:200})
     } catch (error) {
         return NextResponse.json(error,{status:400})
     }

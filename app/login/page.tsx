@@ -20,7 +20,7 @@ export default function Login (){
 
     }
     return (
-        <form className="flex flex-col gap-2 w-[200px] mx-auto mt-20" onSubmit={submitForm}>
+        <form className="flex flex-col gap-2 w-[200px] mx-auto mt-20" onSubmit={submitForm} method="POST">
             <input value={formState.uname} type="text" name="username" placeholder="Имя" onChange={(e)=>{
                 setFormState(prev => {
                     return {...prev, uname: e.target.value}
